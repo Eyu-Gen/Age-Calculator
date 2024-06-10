@@ -72,20 +72,30 @@ for (let i = 0; i < inputs.length; i++) {
 }
 
 function calculateAge() {
-    let day = parseInt(document.querySelector('[name="day"]').value);
-    let month = parseInt(document.querySelector('[name="month"]').value) - 1; // Months are 0-based
+    let date = parseInt(document.querySelector('[name="day"]').value);
+    let month = parseInt(document.querySelector('[name="month"]').value) - 1; 
     let year = parseInt(document.querySelector('[name="year"]').value);
     
-    let birthDate = new Date(year, month, day);
     let today = new Date();
     
-    let y = today.getFullYear() - birthDate.getFullYear();
-    let m = today.getMonth() - birthDate.getMonth();
+    let y = today.getFullYear() - year;
+    let m = today.getMonth() - month;
+    let d = today.getDate() - date;
     
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        y--;
+    if (d < 0) {
+        m--;
+        let prevMonthLastDay = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        d = prevMonthLastDay + d;
     }
-        
+
+    if (m < 0) {
+        y--;
+        m = 12 + m;
+    }
+
     let output = document.getElementsByClassName("outputValue");
     output[0].innerHTML = y.toString().padStart(2, '0');
+    output[1].innerHTML = m.toString().padStart(2, '0');
+    output[2].innerHTML = d.toString().padStart(2, '0');
 };
+
