@@ -81,6 +81,7 @@ main{
 
             &:focus{
                 outline-color: var(--primaryColor);
+                background-color: var(--defaultColor);
             }
         }
 
@@ -91,7 +92,7 @@ main{
             .empty,
             .invalid{
                 color: var(--primaryLighterColor);
-                font-size: 12px;
+                font-size: 10px;
                 font-weight: 500;
                 font-style: italic;
                 display: none;
