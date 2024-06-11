@@ -6,6 +6,7 @@ let labels = document.getElementsByClassName("label");
 let style = document.createElement("style");
 let isValid = true;
 
+// onClick event added
 submitBtn.addEventListener("click", function() {
     isValid = true; 
 
@@ -13,11 +14,14 @@ submitBtn.addEventListener("click", function() {
         let inputValue = inputs[i].value;
         let inputName = inputs[i].getAttribute("name");
 
+        // Displaying error if inputs are empty
         if (inputValue.length == 0) {
             emptyError[i].style.display = "block";
             invalidError[i].style.display = "none";
             isValid = false;
             error();
+
+        // Displaying error if input is invalid
         } else if ((inputName === "day" && (inputValue < 1 || inputValue > 31) ||
                    (inputName === "month" && (inputValue < 1 || inputValue > 12))) ||
                    (inputName === "year" && (inputValue < 1924 || inputValue > new Date().getFullYear()))) {
@@ -31,10 +35,12 @@ submitBtn.addEventListener("click", function() {
         }
     }
 
+    // Calling calculateAge function if there are no errors
     if (isValid) {
         calculateAge();
     }
 
+    // Error function
     function error() {
         for(let i = 0; i < inputs.length; i++) {
             inputs[i].style.borderColor = "var(--primaryLighterColor)";
@@ -48,6 +54,7 @@ submitBtn.addEventListener("click", function() {
         }
     }
 
+    // invalid Function
     function invalid(i) {
         inputs[i].style.borderColor = "var(--primaryLighterColor)";
         inputs[i].style.color = "var(--primaryLighterColor)";
@@ -55,6 +62,7 @@ submitBtn.addEventListener("click", function() {
     }
 });
 
+// Converting the input field into default while input is re-entered
 for (let i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener("click", function() {
         emptyError[i].style.display = "none";
@@ -71,6 +79,7 @@ for (let i = 0; i < inputs.length; i++) {
     });
 }
 
+// calculateAge function
 function calculateAge() {
     let date = parseInt(document.querySelector('[name="day"]').value);
     let month = parseInt(document.querySelector('[name="month"]').value) - 1; 
@@ -93,6 +102,7 @@ function calculateAge() {
         m = 12 + m;
     }
 
+    // Displaying output
     let output = document.getElementsByClassName("outputValue");
     output[0].innerHTML = y.toString().padStart(2, '0');
     output[1].innerHTML = m.toString().padStart(2, '0');
